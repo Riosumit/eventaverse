@@ -27,6 +27,7 @@ def UserLogin(request):
         jsonData = JSONParser().parse(request)
         users = User.objects.filter(email=jsonData['email'], password=jsonData['password'])
         if users:
+            print(request.user)
             request.session["loggedin"] = True
             return JsonResponse({"found":"true", "msg":""})
         else:
@@ -53,23 +54,23 @@ def UserSignUp(request):
         serializer = UserSerializer(data=jsonData)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({"status": "success"}, safe=False)
+            return JsonResponse({"status": "success", "msg":"Registered succesfully"}, safe=False)
         else:
             return JsonResponse(serializer.errors)
         
 class AddEvent(APIView):
     parser_classes = (MultiPartParser, FormParser,)
     def post(self, request, format=None):
-        try:
-            loggedin = request.session["loggedin"]
-        except:
-            loggedin = False
-        if not loggedin :
-            return JsonResponse({"msg": "Not Loggedin"}, safe=False)
+        # try:
+        #     loggedin = request.session["loggedin"]
+        # except:
+        #     loggedin = False
+        # if not loggedin :
+        #     return JsonResponse({"msg": "Not Loggedin"}, safe=False)
         serializer = EventSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({"msg": "Event Added Succesfully"}, safe=False)
+            return JsonResponse({"status":"success", "msg": "Event Added Succesfully"}, safe=False)
         else:
             return JsonResponse(serializer.errors)
         
