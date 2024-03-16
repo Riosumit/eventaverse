@@ -11,33 +11,39 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
 
+# Define a custom SessionAuthentication class to exempt CSRF for certain views
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
         return True
 
+# User Signup View
 class UserSignup(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data.get('email')
+            # Check if the email already exists
             if User.objects.filter(username=email).exists():
                 return Response({"success": False, "msg": "Email already exists"})
             serializer.save()
             return Response({"success": True, "msg": "User registered successfully"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# User Login View
 class UserLogin(APIView):
     def post(self, request):
         email = request.data.get('email', '')
         password = request.data.get('password', '')
         user = authenticate(request, username=email, password=password)
         if user is not None:
+            # Create or retrieve authentication token for the user
             token, created = Token.objects.get_or_create(user=user)
             login(request, user)
             return Response({"success": True, "msg": "Login successful", "token":token.key}, status=status.HTTP_200_OK)
         else:
             return Response({"success": False, "msg": "Invalid email or password"})
 
+# User Logout View
 class UserLogout(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -49,6 +55,7 @@ class UserLogout(APIView):
         else:
             return Response({"success": False, "msg": "User is not logged in"})
 
+# Event List View
 class EventList(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny]
@@ -69,12 +76,14 @@ class EventList(APIView):
         print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# User's Event View
 class MyEvent(APIView):
     def get(self, request):
         events = Event.objects.filter(user=request.user)
         serializer = EventSerializer(events, many=True, context={'user': request.user})
         return Response(serializer.data)
 
+# User's Liked Events View
 class MyLikedEvents(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -87,10 +96,10 @@ class MyLikedEvents(APIView):
             events.append(event_serializer.data)
         return Response({"data": events})
 
+# Like Event View
 class LikeEvent(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-
 
     def get_object(self, pk):
         try:
@@ -114,6 +123,7 @@ class LikeEvent(APIView):
             Like.objects.create(user=request.user, event=event)
             return Response({"success": True, "msg": "Event liked successfully"}, status=status.HTTP_200_OK)
 
+# Unlike Event View
 class UnlikeEvent(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
