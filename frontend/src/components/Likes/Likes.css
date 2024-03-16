@@ -1,0 +1,9 @@
+.likes .content{
+    padding-top: 30px;
+    width: 1000px;
+    max-width: 95vw;
+    margin: auto;
+}
+.likes .list{
+    margin: 5px;
+}

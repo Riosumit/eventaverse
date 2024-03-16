@@ -1,0 +1,73 @@
+.signup{
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+}
+.signup .section{
+    width: 50%;
+    height: 100vh;
+}
+.signup .section .box{
+    margin: auto;
+    width: fit-content;
+    position: relative;
+    height: 100vh;
+}
+.signup .section .box .title{
+    color: #f05537;
+    font-size: x-large;
+    font-weight: 700;
+    font-family: cursive;
+    padding: 5px 0px;
+}
+.signup .section .box .boxhead{
+    font-size: 3.25rem;
+    line-height: 4rem;
+    font-weight: 700;
+    padding: 5px 0px;
+    margin: 30px 0px;
+}
+.signup .section .box .boxcontent label{
+    border: 1px solid #dbdae3;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0px;
+    font-size: small;
+    border-radius: 3px;
+}
+.signup .section .box .boxcontent label:focus{
+    border: 1px solid #5d4be3;
+    color: #5d4be3;
+}
+.signup .section .box input{
+    border: none;
+    max-width: 95%;
+    width: 400px;
+    height: 30px;
+    font-size: larger;
+}
+.signup .section .box button{
+    width: 414px;
+    height: 40px;
+    font-size: larger;
+    color: #dbdae3;
+    background-color: #d1410c;
+    border: none;
+    border-radius: 4px;
+}
+.signup .section .box input:focus{
+    outline: none;
+}
+.signup .background{
+    width: 50%;
+    height: 100%;
+}
+.signup .box .login{
+    position: absolute;
+    bottom: 10px;
+    text-decoration: none;
+    color: blue;
+    font-size: larger;
+}

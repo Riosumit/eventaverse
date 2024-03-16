@@ -1,0 +1,90 @@
+*{
+  margin:0px;
+  padding: 0px;
+}
+a{
+  text-decoration: none;
+}
+body{
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+}
+.nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  padding: 7px;
+  border-bottom: 1px solid #eeedf2;
+  width: 100%;
+}
+.nav .title{
+  color: #f05537;
+  font-size: x-large;
+  font-weight: 700;
+  font-family: cursive;
+  padding: 5px;
+}
+.nav .search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eeedf2;
+  border-radius: 200px;
+  padding: 4px 20px;
+  height: 35px;
+  width: 40%;
+  background-color: #f8f7fa;
+}
+.nav .search .icon{
+  margin: 8px;
+  font-size: 18px;
+}
+.nav .search input{
+  border: none;
+  height: 30px;
+  width: 45%;
+  background-color: transparent;
+}
+.nav .search input:focus{
+  outline: none;
+}
+.nav .options{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav .options a{
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 20px;
+  color: black;
+  border-radius: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+.nav .loggedin_nav a{
+  color: #6f7287;
+  font-size: small;
+  padding: 0px 20px;
+  height: 50px;
+  border-radius: 0px;
+}
+.nav .loggedin_nav .logout{
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  background-color: white;
+  border-radius: 0px;
+  width: 235px;
+  height: 30px;
+  font-size: large;
+  display: none;
+  cursor: pointer;
+  padding: 10px;
+}
+.nav .options a:hover{
+  background-color: #eeeeee;
+}
